@@ -57,7 +57,7 @@ function setWaterLevel(level) {
   waterFill.style.display = 'block';
   waterFill.style.position = 'absolute';
   waterFill.style.bottom = '0';
-  waterFill.style.width = '87%';
+  waterFill.style.width = '100%';
   waterFill.style.height = `${level}%`;
   
   // Change color based on level
@@ -241,9 +241,12 @@ document.addEventListener('DOMContentLoaded', () => {
       // Ensure distance is a valid number between 0-87
       distance = Math.max(0, Math.min(87, 87 - parseInt(distance)));
       console.log(distance)
-      
+
+      let distance1 = distance
+      distance = distance / 87 * 100
+      distance = distance.toFixed(1)
       document.getElementById("distanceValue").textContent = distance;
-      document.getElementById("distanceValue1").textContent = distance;
+      document.getElementById("distanceValue1").textContent = distance1;
       document.getElementById("timeValue").textContent = time;
       setWaterLevel(distance);
 
@@ -255,4 +258,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }).catch((error) => {
     console.error(error);
   });
+
 });
