@@ -228,10 +228,9 @@ document.addEventListener('DOMContentLoaded', () => {
   get(child(dbRef, "/")).then((snapshot) => {
     if (snapshot.exists()) {
       const data = snapshot.val();
-      const observations = Object.entries(data).map(([observationId, observation]) => ({
-        id: observationId,
-        ...observation
-      }));
+      const observations = Object.entries(data)
+        .filter(([_, obs]) => obs.Time) // ignore rows without Time
+        .map(([id, obs]) => ({ id, ...obs }));
       observations.sort((a, b) => new Date(b.Time) - new Date(a.Time));
       
       // Update existing display
@@ -260,3 +259,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
