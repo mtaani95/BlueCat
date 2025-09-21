@@ -105,12 +105,9 @@ function calculateAverages(observations, period) {
       // If previous observation exists, compute difference
       if (index > 0) {
         const prevDistance = Number(observations[index - 1].Distance);
-        console.log("D1:", prevDistance);
-        console.log("D2:", distance);
         if (!isNaN(prevDistance)) {
           const diff = ((87-distance) - (87-prevDistance))/100 * 12;
           if (diff < 0) { // Exclude zeros
-            console.log("diff:", diff);
             averages[key].sum += diff;
             averages[key].count++;
             periodGroups[key].push(diff); // Track raw difference values
@@ -271,5 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
 
 
