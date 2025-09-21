@@ -78,10 +78,10 @@ function calculateAverages(observations, period) {
   const averages = {};
   const periodGroups = {}; // Debug tracking
 
-  observations.forEach(obs => {
+  observations.forEach((obs, index) => {
     const date = new Date(obs.Time);
     let key;
-    
+
     if (period === 'daily') {
       key = date.toISOString().split('T')[0];
     } else if (period === 'weekly') {
@@ -98,31 +98,43 @@ function calculateAverages(observations, period) {
       averages[key] = { sum: 0, count: 0, time: obs.Time };
       periodGroups[key] = []; // Initialize debug array
     }
-    
+
     // Validate distance value
     const distance = Number(obs.Distance);
     if (!isNaN(distance)) {
-      averages[key].sum += distance;
-      averages[key].count++;
-      periodGroups[key].push(distance); // Track raw values
+      // If previous observation exists, compute difference
+      if (index > 0) {
+        const prevDistance = Number(observations[index - 1].Distance);
+        console.log("D1:", prevDistance);
+        console.log("D2:", distance);
+        if (!isNaN(prevDistance)) {
+          const diff = ((87-distance) - (87-prevDistance))/100 * 12;
+          if (diff < 0) { // Exclude zeros
+            console.log("diff:", diff);
+            averages[key].sum += diff;
+            averages[key].count++;
+            periodGroups[key].push(diff); // Track raw difference values
+          }
+        }
+      }
     }
   });
 
   // Debug output
   console.log(`Debug - ${period} groups:`, {
     groupKeys: Object.keys(periodGroups),
-    sampleValues: Object.entries(periodGroups).map(([k,v]) => 
-      ({key: k, count: v.length, sample: v.slice(0,3)}))
+    sampleValues: Object.entries(periodGroups).map(([k, v]) =>
+      ({ key: k, count: v.length, sample: v.slice(0, 3) }))
   });
 
   return Object.entries(averages).map(([key, value]) => {
-    const avg = value.sum / value.count;
+    const avg = value.count > 0 ? value.sum / value.count : 0;
     return {
       time: value.time,
-      average: 87 - avg,
+      average: avg, // Already multiplied by 20
       _debug: { // Debug info
         rawValues: periodGroups[key],
-        rawAverage: avg 
+        rawAverage: avg
       }
     };
   });
@@ -259,4 +271,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
 });
+
 
