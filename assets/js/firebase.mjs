@@ -100,11 +100,11 @@ function calculateAverages(observations, period) {
     }
 
     // Validate distance value
-    const distance = Number(obs.Distance);
+    const distance = Number(obs.Distance_cm);
     if (!isNaN(distance)) {
       // If previous observation exists, compute difference
       if (index > 0) {
-        const prevDistance = Number(observations[index - 1].Distance);
+        const prevDistance = Number(observations[index - 1].Distance_cm);
         if (!isNaN(prevDistance)) {
           const diff = ((87-distance) - (87-prevDistance))/100 * 12;
           if (diff < 0) { // Exclude zeros
@@ -163,7 +163,7 @@ function updateCharts(observations) {
         label: 'Water Consumption vs Time',
         data: observations
           .sort((a, b) => new Date(a.Time) - new Date(b.Time)) // Match sorted order
-          .map(o => 87 - o.Distance), // Transform y-axis values
+          .map(o => 87 - o.Distance_cm), // Transform y-axis values
         borderColor: 'rgb(75, 192, 192)',
         tension: 0.1
       }]
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Update existing display
       const newestObservation = observations[0];
-      let distance = newestObservation["Distance"];
+      let distance = newestObservation["Distance_cm"];
       const time = newestObservation["Time"];
       // Ensure distance is a valid number between 0-87
       distance = Math.max(0, Math.min(87, 87 - parseInt(distance)));
