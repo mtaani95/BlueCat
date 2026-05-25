@@ -1,10 +1,10 @@
 /// Import Firebase functions and objects
 // import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js';
-import { getDatabase, ref, child, get } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js';
+import { initializeDatabase, ref, child, get } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
 import { Chart, LineController, LineElement, PointElement, LinearScale, CategoryScale } from 'https://cdn.jsdelivr.net/npm/chart.js@3.7.1/+esm';
 
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js';
-import { initializeDatabase } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
 
 // Register required components
 Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale);
