@@ -3,6 +3,9 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase
 import { getDatabase, ref, child, get } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js';
 import { Chart, LineController, LineElement, PointElement, LinearScale, CategoryScale } from 'https://cdn.jsdelivr.net/npm/chart.js@3.7.1/+esm';
 
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js';
+import { initializeDatabase } from 'https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js';
+
 // Register required components
 Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale);
 
@@ -18,7 +21,10 @@ const firebaseConfig = {
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
-const db = getDatabase();
+const db = initializeDatabase(firebaseApp, {
+  experimentalForceLongPolling: true,
+  useFetchStreams: false
+});
 const dbRef = ref(db, 'UltraSonicSensor');
 
 // Charts management object
