@@ -19,7 +19,7 @@ Chart.register(
 
 // Firebase RTDB REST URL
 const DATABASE_URL =
-  "https://ultrass-935fe-default-rtdb.europe-west1.firebasedatabase.app/UltraSonicSensor.json";
+  "https://watertankdb-default-rtdb.firebaseio.com/UltraSonicSensor.json";
 
 // Charts management object
 const charts = {
