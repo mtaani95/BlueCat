@@ -282,11 +282,44 @@ async function loadData() {
   }
 }
 
+
+
+async function measureNow() {
+
+  try {
+
+    await fetch(
+      "https://watertankdb-default-rtdb.firebaseio.com/MeasureNow.json",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(true)
+      }
+    );
+
+    alert("Measurement requested!");
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Failed to request measurement");
+  }
+}
+
+
+
+
 // Load initially
 document.addEventListener('DOMContentLoaded', () => {
 
+  document
+    .getElementById("measureBtn")
+    .addEventListener("click", measureNow);
+
   loadData();
 
-  // Refresh every 10 seconds
   setInterval(loadData, 10000);
 });
