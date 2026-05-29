@@ -117,7 +117,7 @@ function calculateAverages(observations, period) {
       if (!isNaN(prevDistance)) {
 
         const diff =
-          ((87 - distance) - (87 - prevDistance)) / 100 * 12;
+          ((82 - distance) - (82 - prevDistance)) / 100 * 12;
 
         if (diff < 0) {
 
@@ -174,7 +174,7 @@ function updateCharts(observations) {
           label: 'Water Level',
 
           data: observations.map(o =>
-            87 - Number(o.Distance_cm)
+            82 - Number(o.Distance_cm)
           ),
 
           borderColor: 'rgb(75, 192, 192)',
@@ -254,12 +254,12 @@ async function loadData() {
     const time = newestObservation["Time"];
 
     distance =
-      Math.max(0, Math.min(87, 87 - distance));
+      Math.max(0, Math.min(82, 82 - distance));
 
     let distanceCM = distance;
 
     let percentage =
-      (distance / 87) * 100;
+      (distance / 70) * 100;
 
     percentage = percentage.toFixed(1);
 
