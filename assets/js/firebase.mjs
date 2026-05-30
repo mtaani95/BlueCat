@@ -315,9 +315,11 @@ async function measureNow() {
 // Load initially
 document.addEventListener('DOMContentLoaded', () => {
 
-  document
-    .getElementById("measureBtn")
-    .addEventListener("click", measureNow);
+  const measureBtn = document.getElementById("measureBtn");
+  
+    if (measureBtn) {
+      measureBtn.addEventListener("click", measureNow);
+    }
 
   loadData();
 
